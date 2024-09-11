@@ -13,7 +13,24 @@ With this setup, I can log in to the general account and assume an admin role in
 ## Cloud Trail and Cloud Watch Logs
 I enabled a cloud trail across all of the accounts in the organization.  It will record API events for management actions on the account.  This includes things like changing IAM policies, creating EC2 instances, creating S3 buckets etc.  We set it up to monitor events in all AWS regions.  Data events and insights events are disabled as they will likely incur costs.  We are trying to remain in the free tier with the project.
 
-# Static Website - S3
+
+# S3 Multi Region Access Points - Mini Project
+
+I am going to create an S3 multi region access point. Access points let you create a single global s3 endpoint and point it to multiple s3 buckets.  It allows routing to the closest s3 service.
+
+The first thing to do is to set up buckets in two different regions.
+
+```
+multi-region-demo-nvirginia
+multi-region-demo-sydney-1
+```
+
+Next I create an S3 Multi-Region Access Point, `multi-region-access-point`.
+
+Next, we'll enable replication between the two buckets.  We can do that by selecting the multi-region access point and configuring replication.  We'll make it active-active so that both buckets will have the same objects.
+
+# Other Tasks Along the Way - Demos
+## Static Website - S3
 
 I set up a new bucket, enabled public access on create, uploaded files, and allowed static website hosting. 
 
