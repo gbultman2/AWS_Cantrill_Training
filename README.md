@@ -28,6 +28,17 @@ multi-region-demo-sydney-1
 Next I create an S3 Multi-Region Access Point, `multi-region-access-point`.
 
 Next, we'll enable replication between the two buckets.  We can do that by selecting the multi-region access point and configuring replication.  We'll make it active-active so that both buckets will have the same objects.
+![replication](s3replication.png)
+
+Make some files in cloud shell and upload them to the closest s3 bucket using the ARN of the multi-access point.
+```
+dd if=/dev/urandom of=test1.file bs=1M count=10
+aws s3 cp test1.file s3://<s3mulit-access-arn>
+```
+When running this command in us-east-2 on cloud shell, it will upload to the us-east-1 region bucket then replication will take place.  The access point picks the closest region to upload.
+
+Note that access might not be immediate for users in Sydney when using the multi-region access point since replication takes a little bit.
+
 
 # Other Tasks Along the Way - Demos
 ## Static Website - S3
