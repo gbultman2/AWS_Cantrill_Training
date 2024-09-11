@@ -6,6 +6,8 @@ AWS has organizations that can control accounts.  You have a management/master a
 
 For this project, we set up a general account, a prod account within a prod OU and a dev account within a dev OU.  We didn't use an SCP, but I have one in the diagram just to show where they go and what they apply to.  The SCP can be set up to restrict access to certain products within AWS.  For instance, we could set it up to deny access to S3 and accounts within the OU would not be able to access S3.
 
+With this setup, I can log in to the general account and assume an admin role in either the dev or prod accounts.
+
 ![organization](organization.jpg)
 
 ## Cloud Trail and Cloud Watch Logs
