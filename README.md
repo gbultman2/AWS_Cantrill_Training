@@ -37,7 +37,7 @@ aws s3 cp test1.file s3://<s3mulit-access-arn>
 ```
 When running this command in us-east-2 on cloud shell, it will upload to the us-east-1 region bucket then replication will take place.  The access point picks the closest region to upload.
 
-Note that access might not be immediate for users in Sydney when using the multi-region access point since replication takes a little bit.
+Note that access might not be immediate for users in Sydney when using the multi-region access point since replication takes a little bit.  We could use RTC with an SLA of 15 minutes for additional cost.
 
 
 # Other Tasks Along the Way - Demos
