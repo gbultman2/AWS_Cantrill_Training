@@ -17,7 +17,7 @@ I set up a new bucket, enabled public access on create, uploaded files, and allo
 
 When I first try to navigate to the webpage, we get a 403 Forbidden error.  This is because I haven't set up any permissions for anyone to access S3 objects.  I am trying to access as an anonymous user when I open it through a web browser.  The anonymous user is unauthenticated.
 
-To do this, we make a resource policy for the bucket that allows access to **objects in the bucket**
+To do this, we make a resource policy for the bucket that allows access to **objects in the bucket.**  The "Principal" of "*" gives access to anyone on the web.
 ```
 {
     "Version":"2012-10-17",
@@ -32,3 +32,5 @@ To do this, we make a resource policy for the bucket that allows access to **obj
     ]
   }
 ```
+Now, we can see the website for the top 10 animals...judged by Merlin the cat.
+![judge](merlin_judge.png)
