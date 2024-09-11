@@ -9,4 +9,26 @@ For this project, we set up a general account, a prod account within a prod OU a
 ![organization](organization.jpg)
 
 ## Cloud Trail and Cloud Watch Logs
-We've enabled a cloud trail across all of the accounts in the organization.  It will record API events for management actions on the account.  This includes things like changing IAM policies, creating EC2 instances, creating S3 buckets etc.  We set it up to monitor events in all AWS regions.  Data events and insights events are disabled as they will likely incur costs.  We are trying to remain in the free tier with the project.
+I enabled a cloud trail across all of the accounts in the organization.  It will record API events for management actions on the account.  This includes things like changing IAM policies, creating EC2 instances, creating S3 buckets etc.  We set it up to monitor events in all AWS regions.  Data events and insights events are disabled as they will likely incur costs.  We are trying to remain in the free tier with the project.
+
+# Static Website - S3
+
+I set up a new bucket, enabled public access on create, uploaded files, and allowed static website hosting. 
+
+When I first try to navigate to the webpage, we get a 403 Forbidden error.  This is because I haven't set up any permissions for anyone to access S3 objects.  I am trying to access as an anonymous user when I open it through a web browser.  The anonymous user is unauthenticated.
+
+To do this, we make a resource policy for the bucket that allows access to **objects in the bucket**
+```
+{
+    "Version":"2012-10-17",
+    "Statement":[
+      {
+        "Sid":"PublicRead",
+        "Effect":"Allow",
+        "Principal": "*",
+        "Action":["s3:GetObject"],
+        "Resource":["arn:aws:s3:::examplebucket/*"]
+      }
+    ]
+  }
+```
