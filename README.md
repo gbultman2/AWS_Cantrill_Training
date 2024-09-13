@@ -61,7 +61,7 @@ For this network, we have the following
 
 We'll attach a NAT gateway in the public subnets so that the resources in the private subnets can access the internet to get updates.  The VPC will need an internet gateway attached as well. 
 Below is a diagram: 
-!(network)[NetworkDiagram.png]
+!(network)[NetworkConfig.png]
 
 # S3 Multi Region Access Points - Mini Project
 
