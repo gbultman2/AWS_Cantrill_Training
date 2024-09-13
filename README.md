@@ -38,7 +38,6 @@ We'll do 4 AZ which is 3 AZ plus one spare. We'll do 4 subnets in each AZ, Web, 
 
 Splitting 10.16.0.0/16, splitting it into 16 subnets, each subnet will result in a /20 network (4096 IP per subnet).
 
-00000000 00000000 0000 0000 00000000
 For this network, we have the following
 
 |az  |subnet|IP CIDR|IP range|
@@ -59,6 +58,10 @@ For this network, we have the following
 |Spare|Database|10.16.208.0/20|10.16.208.0 - 10.16.223.255|
 |Spare|Database|10.16.224.0/20|10.16.224.0 - 10.16.239.255|
 |Spare|Database|10.16.240.0/20|10.16.240.0 - 10.16.255.255|
+
+We'll attach a NAT gateway in the public subnets so that the resources in the private subnets can access the internet to get updates.  The VPC will need an internet gateway attached as well. 
+Below is a diagram: 
+!(network)[NetworkDiagram.png]
 
 # S3 Multi Region Access Points - Mini Project
 
