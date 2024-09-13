@@ -13,6 +13,52 @@ With this setup, I can log in to the general account and assume an admin role in
 ## Cloud Trail and Cloud Watch Logs
 I enabled a cloud trail across all of the accounts in the organization.  It will record API events for management actions on the account.  This includes things like changing IAM policies, creating EC2 instances, creating S3 buckets etc.  We set it up to monitor events in all AWS regions.  Data events and insights events are disabled as they will likely incur costs.  We are trying to remain in the free tier with the project.
 
+# Setting Up the Network
+
+I must take into consideration that A4L is a global organization and that it could become huge when considering underlying network infrastructure. 
+
+I have some contraints on the network that I can implement.  The Animals4Life organization has existing architecture with its on premises locations, azure, google cloud, and previous aws implementation.
+
+* 192.168.10.0/24 (On Premises Office in Sydney)
+* 10.0.0.0/16 (AWS)
+* 172.31.0.0/16 (Azure)
+* 192.168.15.0/24 (London Office)
+* 192.168.20.0/24 (New York Office)
+* 192.168.25.0/24 (Seattle Office)
+* Google is unknown, but the default range is 10.128.0.0/9
+
+So, I need to avoid all of these IP ranges.
+
+With a large organization, I will use the 10 space.  AWS limits the smallest network of /28 and largest a /16 network.  I will avoid common ranges of 10.0 and 10.1 - 10.10.  I can start at 10.16 since it's easy for the base 2 structure.
+
+Since the business can become large, I will assume that it will be global and use up to 5 regions (2x US, 1x Europe, Australia x2) with 4 accounts and 2+ networks per region. That's 40 IP ranges minimum.
+
+Starting at 10.16.0.0/16
+We'll do 4 AZ which is 3 AZ plus one spare. We'll do 4 subnets in each AZ, Web, Application, Database, Spare. That's 16 total subnets in the VPC. 
+
+Splitting 10.16.0.0/16, splitting it into 16 subnets, each subnet will result in a /20 network (4096 IP per subnet).
+
+00000000 00000000 0000 0000 00000000
+For this network, we have the following
+
+|az  |subnet|IP CIDR|IP range|
+|----|----|---|---|
+|A|Reserved    |10.16.0.0/20|10.16.0.0.0 - 10.16.15.255|
+|A|Database    |10.16.16.0/20|10.16.16.0 - 10.16.31.255|
+|A|Application |10.16.32.0/20|10.16.32.0 - 10.16.47.255|
+|A|Web         |10.16.48.0/20|10.16.48.0 - 10.16.63.255|
+|B|Reserved    |10.16.64.0/20|10.16.64.0.0 - 10.16.79.255|
+|B|Database    |10.16.80.0/20|10.16.80.0 - 10.16.95.255|
+|B|Application |10.16.96.0/20|10.16.96.0 - 10.16.111.255|
+|B|Web         |10.16.112.0/20|10.16.112.0 - 10.16.127.255|
+|C|Reserved    |10.16.128.0/20|10.16.128.0.0 - 10.16.143.255|
+|C|Database    |10.16.144.0/20|10.16.144.0 - 10.16.159.255|
+|C|Application |10.16.160.0/20|10.16.160.0 - 10.16.175.255|
+|C|Web         |10.16.176.0/20|10.16.176.0 - 10.16.191.255|
+|Spare|Reserved|10.16.192.0/20|10.16.192.0 - 10.16.207.255|
+|Spare|Database|10.16.208.0/20|10.16.208.0 - 10.16.223.255|
+|Spare|Database|10.16.224.0/20|10.16.224.0 - 10.16.239.255|
+|Spare|Database|10.16.240.0/20|10.16.240.0 - 10.16.255.255|
 
 # S3 Multi Region Access Points - Mini Project
 
