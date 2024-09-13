@@ -59,9 +59,12 @@ For this network, we have the following
 |Spare|Database|10.16.224.0/20|10.16.224.0 - 10.16.239.255|
 |Spare|Database|10.16.240.0/20|10.16.240.0 - 10.16.255.255|
 
-We'll attach a NAT gateway in the public subnets so that the resources in the private subnets can access the internet to get updates.  The VPC will need an internet gateway attached as well. 
+We'll attach a NAT gateway in the public subnets so that the resources in the private subnets can access the internet to get updates.  The VPC will need an internet gateway attached as well.  Note that the NAT gateway is an availability zone construct and they will require Elastic IP addresses assigned to them.  Only one internet gateway can be attached to a VPC. Each region will have a separate network.  US-1 will be 10.16.0.0/16, US2 will be 10.32.0.0/16 etc. 
+
+We will implement this network concept in five different regions as necessary.  The main thing is that we have devised a networking strategy that is global and can accomodate large growth.  
 Below is a diagram: 
-!(network)[NetworkConfig.png]
+
+![network](NetworkConfig.png)
 
 # S3 Multi Region Access Points - Mini Project
 
