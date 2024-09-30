@@ -92,6 +92,8 @@ When running this command in us-east-2 on cloud shell, it will upload to the us-
 Note that access might not be immediate for users in Sydney when using the multi-region access point since replication takes a little bit.  We could use RTC with an SLA of 15 minutes for additional cost.
 
 
+# VPN Miniproject
+
 # Other Tasks Along the Way - Demos
 ## Static Website - S3
 
