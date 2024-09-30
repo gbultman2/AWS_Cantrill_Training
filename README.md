@@ -94,6 +94,26 @@ Note that access might not be immediate for users in Sydney when using the multi
 
 # VPN Miniproject
 
+Site to Site VPN Gateway using pfSense as a simulated on-premises network. 
+
+1.  The first step is to set up a subscription to the pfsense product from netgear.
+
+## Setting up the VPN
+1.  Go to VPC, then set up the customer gateway and point it to the router for the simulated on-premises network.
+2.  Set up the virtual private gateway and point it to the correct VPC.
+3.  Attach the virtual private gateway to the VPC.
+4.  Set up the site-to-site VPN ocnnection using the customer gateway and virtual private gateway.
+   a.  we are using a static setup
+   b.  make sure to set the IP CIDR block to the customer range of IPs.  (This would be automatic if using BGP and dynamic setup)
+5. Download the VPN configuration file.
+6. Log in to the pfSense router and create the tunnels to AWS for the On-Prem Router
+   a.  Set up phase I and phase II using the config file in step 5. Make sure to set up the two tunnels to the two separate endpoints in AWS.
+   b.  Apply all changes go to status IPSEC and connect tunnels.
+7. Last, test the VPC connection by using RDP on the On-Prem server to connect to the VPC and Cat server in AWS.
+
+![VPN](VPN.png)
+ 
+
 # Other Tasks Along the Way - Demos
 ## Static Website - S3
 
